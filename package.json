@@ -1,0 +1,21 @@
+{
+  "name": "csv-to-json-converter",
+  "version": "1.0.0",
+  "description": "CSV to JSON Converter. Module 1 assignment from Introduction to NodeJS.",
+  "main": "ConverterCSVtoJSON.js",
+  "scripts": {
+    "start": "node Main.js",
+    "test": "node Test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neonblueflame/csv-to-json-converter.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neonblueflame/csv-to-json-converter/issues"
+  },
+  "homepage": "https://github.com/neonblueflame/csv-to-json-converter#readme"
+}
