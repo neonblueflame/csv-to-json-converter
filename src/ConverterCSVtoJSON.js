@@ -44,7 +44,7 @@ function ConverterCSVtoJSON() {
     }
     , writeToFile: function(filePath) {
       // TODO: make async, emit/listen to events
-      fs.writeFileSync(filePath, JSON.stringify(arrJson));
+      fs.writeFileSync(filePath, JSON.stringify(arrJson, null, 1));
     }
   };
   
