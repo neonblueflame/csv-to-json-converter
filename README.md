@@ -1,7 +1,7 @@
 # csv-to-json-converter
 CSV to JSON Converter. Module 1 assignment submission to Introduction to NodeJS.
 
-To run change CSV file location and JSON filename in Main.js and enter npm start in terminal.
+To run, change CSV file input path and JSON file output path in Main.js and enter npm start in terminal.
 <br />
 `npm start`
 
