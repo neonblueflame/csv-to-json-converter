@@ -1,5 +1,5 @@
 
-var ConverterCSVtoJSONtest = function(expectedJSON) {
+const ConverterCSVtoJSONtest = function(expectedJSON) {
   
   const fs = require("fs");
   const Util = require("../src/Util.js");

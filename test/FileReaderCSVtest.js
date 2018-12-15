@@ -1,5 +1,5 @@
 
-var FileReaderCSVtest = function() {
+const FileReaderCSVtest = function() {
   
   const fs = require("fs");  
   const FileReaderCSV = require("../src/FileReaderCSV.js");
