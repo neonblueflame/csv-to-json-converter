@@ -14,7 +14,7 @@ var FileReaderCSVtest = function() {
   function getRawCSV(path) {
     Util.log(path);
     if (Util.isEmpty(rawCSV)) {
-      rawCSV = fs.readFileSync(path).toString();
+      rawCSV = fs.readFileSync(path).toString().trim();
       rows = rawCSV.split("\n");
       headers = rows[0].split(",");
     }
@@ -67,6 +67,7 @@ var FileReaderCSVtest = function() {
       
       let readerRows = reader.getRows();
       let result = Util.compareArray(readerRows, rows);
+      
       dispTestResult(result, true);
       
       Util.log(testName + " test: end");
@@ -78,6 +79,7 @@ var FileReaderCSVtest = function() {
       
       let expected = rows.length;     
       let result = reader.getRowCount();
+      Util.log("Data count: ", result);
       dispTestResult(result, expected);
       
       Util.log(testName + " test: end");
@@ -87,9 +89,10 @@ var FileReaderCSVtest = function() {
       
       Util.log(testName + " test: start");
       
-      let expected = [];
-      let result = reader.getRowDetail(index);
-      dispTestResult(result.length, expected.length);
+      let rowDetails = rows[index].split(",");
+      let readerRowDetails = reader.getRowDetail(index);
+      let result = Util.compareArray(readerRowDetails, rowDetails);
+      dispTestResult(result, true);
       
       Util.log(testName + " test: end");
     }

@@ -16,7 +16,7 @@ function FileReaderCSV() {
   
   // TODO: make readFile async then emit/listen events for it
   function loadFile() {
-    fileRaw = fs.readFileSync(filePath).toString();
+    fileRaw = fs.readFileSync(filePath).toString().trim();
     fileRows = fileRaw.split("\n");
     fileRowCount = fileRows.length;
   }
