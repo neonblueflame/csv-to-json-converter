@@ -14,6 +14,7 @@ function FileReaderCSV() {
   let fileRows = [];
   let fileRowCount = 0;
   
+  // TODO: make readFile async then emit/listen events for it
   function loadFile() {
     fileRaw = fs.readFileSync(filePath).toString();
     fileRows = fileRaw.split("\n");

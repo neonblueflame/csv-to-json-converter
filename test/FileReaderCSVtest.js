@@ -1,39 +1,51 @@
 
 var FileReaderCSVtest = function() {
   
-  const fs = require("fs");
-  const path = require("path");
-  
+  const fs = require("fs");  
   const FileReaderCSV = require("../src/FileReaderCSV.js");
   const Util = require("../src/Util.js");
+  
   const reader = new FileReaderCSV();
   
-  let defaultPath = "C:\\Users\\HP\\Workspace\\nodejs\\csv-to-json-converter\\in\\customer-data.csv";
+  let rawCSV = "";
+  let headers = [];
+  let rows = [];
   
-  function isEmpty(string) {
-    return (Util.isNull(string) || string == "")
-  }
-  
-  let rawCSV = {};
   function getRawCSV(path) {
-    if (isEmpty(rawCSV))
+    Util.log(path);
+    if (Util.isEmpty(rawCSV)) {
       rawCSV = fs.readFileSync(path).toString();
+      rows = rawCSV.split("\n");
+      headers = rows[0].split(",");
+    }
     
     return rawCSV;
   }
   
+  function rowCSVtoArray(strCSV) {
+    if (Util.isEmpty(strCSV))
+      return [];
+    
+    return strCSV.split(",");
+  }
+  
+  function dispTestResult(result, expected) {
+    if (result == expected)
+        Util.log("Test OK");
+    else
+      Util.log("Test NOK");
+  }
+  
   return {
-    readCSV: function() {
+    readCSV: function(path) {
       let testName = arguments.callee.name;
       
       Util.log(testName + " test: start");
       
-      let rawFile = reader.read(defaultPath);
-      if (rawFile == getRawCSV(defaultPath))
-        Util.log("Test OK");
+      let expected = getRawCSV(path);     
+      let result = reader.read(path);
       
-      else
-        Util.log("Test NOK");
+      dispTestResult(result, expected);
         
       Util.log(testName + " test: end");
     }
@@ -41,32 +53,44 @@ var FileReaderCSVtest = function() {
       let testName = arguments.callee.name;
      
       Util.log(testName + " test: start");
-      let headers = reader.getHeaders();
-      Util.log(headers);
+      
+      let readerHeaders = reader.getHeaders();
+      let result = Util.compareArray(readerHeaders, headers);
+      dispTestResult(result, true);
+      
       Util.log(testName + " test: end");
     }
     , dispRows: function() {
       let testName = arguments.callee.name;
       
       Util.log(testName + " test: start");
-      let rows = reader.getRows();
-      Util.log(rows);
+      
+      let readerRows = reader.getRows();
+      let result = Util.compareArray(readerRows, rows);
+      dispTestResult(result, true);
+      
       Util.log(testName + " test: end");
     }
-    , dispRowCount: function(index) {
+    , dispRowCount: function() {
       let testName = arguments.callee.name;
       
       Util.log(testName + " test: start");
-      let count = reader.getRowCount(index);
-      Util.log(count);
+      
+      let expected = rows.length;     
+      let result = reader.getRowCount();
+      dispTestResult(result, expected);
+      
       Util.log(testName + " test: end");
     }
     , dispRowDetail: function(index) {
       let testName = arguments.callee.name;
       
       Util.log(testName + " test: start");
-      let row = reader.getRowDetail(index);
-      Util.log(row);
+      
+      let expected = [];
+      let result = reader.getRowDetail(index);
+      dispTestResult(result.length, expected.length);
+      
       Util.log(testName + " test: end");
     }
   };
